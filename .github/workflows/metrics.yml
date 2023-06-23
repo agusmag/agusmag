@@ -1,0 +1,88 @@
+name: Metrics
+on:
+  schedule:
+    - cron: "0 8 * * *" # Every day at 8:00 AM UTC / 12:00 PM ART
+  workflow_dispatch:
+  push: {branches: ["main"]}
+jobs:
+  # <-- START METRICS PLUGINS -->
+  github-metrics:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: lowlighter/metrics@latest
+        with:
+          filename: header.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          committer_token: ${{ secrets.METRICS_COMMITTER_TOKEN }}
+          # Options
+          user: amagliano
+          template: classic
+          base: header
+  achievements:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: lowlighter/metrics@latest
+        with:
+          filename: achievements.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          committer_token: ${{ secrets.METRICS_COMMITTER_TOKEN }}
+          user: amagliano
+          base: achievements
+          plugin_achievements: yes
+          plugin_achievements_threshold: B      # Display achievements with rank B or higher
+          plugin_achievements_secrets: yes      # Display unlocked secrets achievements
+          plugin_achievements_display: compact  # Use compact display
+          plugin_achievements_limit: 0          # Display all unlocked achievements (no limit)
+  isocalendar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: lowlighter/metrics@latest
+        with:
+          filename: isocalendar.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          committer_token: ${{ secrets.METRICS_COMMITTER_TOKEN }}
+          # Options
+          user: amagliano
+          template: classic
+          base: ""
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: half-year
+  repositories:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: lowlighter/metrics@latest
+        with:
+          filename: repositories.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          committer_token: ${{ secrets.METRICS_COMMITTER_TOKEN }}
+          # Options
+          user: amagliano
+          template: classic
+          base: repositories
+          repositories_affiliations: owner, collaborator
+  activity_community:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: lowlighter/metrics@latest
+        with:
+          filename: activity_community.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          committer_token: ${{ secrets.METRICS_COMMITTER_TOKEN }}
+          # Options
+          user: amagliano
+          template: classic
+          base: activity, community
+  # <-- END METRICS PLUGINS -->
+  # <-- START BADGES PLUGINS -->
+  creadly-badges:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Badges
+        uses: pemtajo/badge-readme@main
+        with:       
+          CREDLY_USER: agustin-magliano
+          GH_TOKEN: ${{ secrets.METRICS_TOKEN }}
+          BADGE_SIZE: 110
+  # <-- END BADGES PLUGINS -->
