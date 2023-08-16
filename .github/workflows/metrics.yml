@@ -76,13 +76,13 @@ jobs:
           base: activity, community
   # <-- END METRICS PLUGINS -->
   # <-- START BADGES PLUGINS -->
-  creadly-badges:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Badges
-        uses: pemtajo/badge-readme@main
-        with:       
-          CREDLY_USER: agustin-magliano
-          GH_TOKEN: ${{ secrets.METRICS_TOKEN }}
-          BADGE_SIZE: 110
+  # creadly-badges:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Badges
+  #       uses: pemtajo/badge-readme@main
+  #       with:       
+  #         CREDLY_USER: agustin-magliano
+  #         GH_TOKEN: ${{ secrets.METRICS_TOKEN }}
+  #         BADGE_SIZE: 110
   # <-- END BADGES PLUGINS -->
